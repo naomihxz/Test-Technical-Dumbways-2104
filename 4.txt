@@ -1,0 +1,74 @@
+CREATE TABLE customers (
+    id int NOT NULL,
+    name varchar(255) NOT NULL,
+    email varchar(255) NOT NULL UNIQUE,
+    address text,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO customers (id, name, email, address)
+VALUES (1, 'Tomi', 'tomi@gmail.com', 'Surabaya');
+
+INSERT INTO customers (id, name, email, address)
+VALUES (2, 'Andi', 'andi@gmail.com', 'Sragen');
+
+INSERT INTO customers (id, name, email, address)
+VALUES (3, 'Sarah', 'sarah@gmail.com', 'Bali');
+
+CREATE TABLE brands (
+    id int NOT NULL,
+    name varchar(255) NOT NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO brands (id, name)
+VALUES (1, 'Toyota');
+
+INSERT INTO brands (id, name)
+VALUES (2, 'Mazda');
+
+INSERT INTO brands (id, name)
+VALUES (3, 'Mitsubishi');
+
+CREATE TABLE cars (
+    id int NOT NULL,
+    name varchar(255) NOT NULL UNIQUE,
+    brand_id int NOT NULL,
+    image varchar(255) NOT NULL,
+    color char(100),
+    description text,
+    create_time datetime,
+    update_time datetime,
+    stock int NOT NULL,
+    FOREIGN KEY (brand_id) REFERENCES brands(id),
+    PRIMARY KEY (id)
+);
+
+INSERT INTO cars (id, name, brand_id, image, color, description, create_time, update_time, stock)
+VALUES (1, 'Trueno AE86', 1, 'public/storage/cars_image/1.png', 'white', 'none', '2021-01-01 00:00:00', '', 10);
+
+INSERT INTO cars (id, name, brand_id, image, color, description, create_time, update_time, stock)
+VALUES (2, 'Lan-Evo 4', 3, 'public/storage/cars_image/2.png', 'white', 'none', '2021-01-01 00:00:01', '', 11);
+
+INSERT INTO cars (id, name, brand_id, image, color, description, create_time, update_time, stock)
+VALUES (3, 'RX-7 Savanna', 2, 'public/storage/cars_image/3.png', 'white', 'none', '2021-01-01 00:00:02', '', 12);
+
+SELECT * FROM cars
+
+CREATE TABLE customers_cars (
+    id int NOT NULL,
+    car_id int NOT NULL,
+    customer_id int NOT NULL,
+    FOREIGN KEY (car_id) REFERENCES cars(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    PRIMARY KEY (id)
+);
+
+INSERT INTO customers_cars (id, car_id, customer_id)
+VALUES (1, 1, 1);
+
+INSERT INTO customers_cars (id, car_id, customer_id)
+VALUES (2, 2, 2);
+
+INSERT INTO customers_cars (id, car_id, customer_id)
+VALUES (3, 3, 3);
